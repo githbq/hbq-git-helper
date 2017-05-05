@@ -54,23 +54,32 @@
          }
          //切换分支
      checkout(branchName = '.') {
-             return new Promise((resolve) => {
-                 debugger
-                 this.gitHandler.checkout(branchName, (error, data) => {
-                     resolve({ error, data });
-                 });
+         return new Promise((resolve) => {
+             debugger
+             this.gitHandler.checkout(branchName, (error, data) => {
+                 resolve({ error, data });
              });
+         });
+     }
+     fetch(branch, remote = 'origin') {
+             return new Promise(resolve => {
+                 this.gitHandler.fetch(remote, branch, (error, data) => {
+                     resolve({ error, data });
+                 })
+             })
          }
          /**
           * 将本地代码与远程代码同步
           * @param {远程分支名} branch 
           */
      reset(branch) {
-             let deferred = Q.defer();
-             this.gitHandler.reset(['--hard', `origin/${branch}`], (error, data) => {
-                 deferred.resolve({ success: !error, error, data });
-             });
-             return deferred.promise;
+             return this.fetch(branch).then(() => {
+                 return new Promise(resolve => {
+                     this.gitHandler.reset(['--hard', `origin/${branch}`], (error, data) => {
+                         resolve({ error, data });
+                     });
+                 })
+             })
          }
          /**
           * 重新设置工作目录
@@ -92,4 +101,3 @@
          });
      }
  }
-
