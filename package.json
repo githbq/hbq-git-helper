@@ -1,6 +1,6 @@
 {
     "name": "git-helper",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "git操作辅助工具",
     "main": "index.js",
     "scripts": {
@@ -10,11 +10,7 @@
         "type": "git",
         "url": "git@github.com:githbq/hbq-git-helper.git"
     },
-    "keywords": [
-        "io",
-        "helper",
-        "es6"
-    ],
+    "keywords": ["io", "helper", "es6"],
     "author": "hubiqing",
     "license": "MIT",
     "bugs": {

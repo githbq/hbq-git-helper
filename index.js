@@ -3,7 +3,7 @@
  const through2 = require('through2');
  const ioHelper = require('iohelper');
 
- export default class GitHelper {
+ module.exports = class GitHelper {
      constructor(workingDirPath) {
          this.workingDirPath = workingDirPath;
          //创建这个路径
