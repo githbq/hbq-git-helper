@@ -39,18 +39,18 @@
           * @param {分支:默认为master} branch  
           */
      clone(repoPath, localPath, branch) {
-             let deferred = Q.defer();
-             //删除对应的文件夹
-             ioHelper.deleteFile(localPath)
-                 .then(() => {
-                     //创建对应的文件夹
-                     return ioHelper.makeDir(localPath);
-                 }).then(() => {
-                     this.gitHandler.clone(repoPath, localPath, ['-b', branch || 'master'], (error, data) => {
-                         deferred.resolve({ success: !error, error, data });
-                     })
-                 });
-             return deferred.promise;
+             return new Promise(resolve => {
+                 //删除对应的文件夹
+                 ioHelper.deleteFile(localPath)
+                     .then(() => {
+                         //创建对应的文件夹
+                         return ioHelper.makeDir(localPath);
+                     }).then(() => {
+                         this.gitHandler.clone(repoPath, localPath, ['-b', branch || 'master'], (error, data) => {
+                             resolve({ success: !error, error, data });
+                         })
+                     });
+             })
          }
          //切换分支
      checkout(branchName = '.') {
